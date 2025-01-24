@@ -1,42 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long int
+#define double long double
+#define ull unsigned long long
+#define MOD 998244353
+#define print(a) for(auto x : a) cerr << x << " "; cerr<<endl;
+#define print1(b) for(auto x : b) cerr << x.first << " " << x.second <<endl;
+#define print2(a,x,y) for(int i =x ;i<y;i++) cerr<< a[i] << " ";cerr<<endl;
+#define F first
+#define S second
+#define bug(...) __f(#__VA_ARGS__,__VA_ARGS__)
+template <typename Arg1>
+void __f(const char * name , Arg1&& arg1){cerr << name << " : " << arg1 << endl ; }
+template <typename Arg1, typename... Args>
+void __f(const char * names , Arg1&& arg1, Args&&... args){
+    const char* comma = strchr (names + 1,',');
+    cerr.write (names, comma - names) << " : " << arg1 << " | ";__f(comma +1, args... );
+}
 
-int main(){
-    int tt = 1;
-    cin >> tt;
-    while(tt--){
-        int n , m;
-        cin >> n >> m;
-        vector<int> a(n);
-        vector<int> b(m);
-        for(auto & i : a)cin >> i;
-        for(auto & i : b)cin >> i;
-        vector<int> v1 , v2;
-        // for(auto val : a)cout << val << " ";
-        // cout << '\n';
-        sort(a.begin() , a.end() );
-        sort(b.begin() , b.end());
-        for(int l = 0 , r = n - 1 ; l < r ; l++ , r-- ){
-            v1.push_back(a[r] - a[l]);
-        }
-        for(int l = 0 , r = m - 1 ; l < r ; l++ , r-- ){
-            v2.push_back(b[r] - b[l]);
-        }
-        // for(auto val : v1)cout << val << " ";
-        // cout << '\n';
-        
-        // for(auto val : v1)cout << val << " ";
-        // cout << '\n';
-        // reverse(v1.begin() , v1.end());
-        // reverse(v2.begin() , v2.end());
-        int i = 0 , j = 0;
-        int N = v1.size() , M = v2.size();
-        int rem1 = 0 , rem2 = 0;
-        while(1){
-            if(rem1 > 1 && i < N && rem2 > 1 && j < M ){
-                if(v1[i] > v2[j])
-            }
-        }
+
+int32_t main() {
+    std::ios_base::sync_with_stdio(false);
+	std::cin.tie(nullptr); std::cout.tie(nullptr);
+    int ttt=1 ;
+    int mod = 998244353;
+    cin>>ttt;
+    for(int tt = 1 ; tt <= ttt ; tt++ ){
         
     }
 }
+
+
