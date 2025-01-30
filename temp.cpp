@@ -26,62 +26,7 @@ int32_t main() {
     int mod = 998244353;
     cin>>ttt;
     for(int tt = 1 ; tt <= ttt ; tt++ ){
-        int n;
-        cin >> n;
-        vector<pair<int,int>>vp;
-        for(int i = 0 ; i < n ; i++){
-            int l , r;
-            cin >> l >> r;
-            vp.push_back({l,r});
-        }
-        vector<set<int>>adj(n);
-        for(int i = 0 ; i < n-1 ; i++){
-            int u , v;
-            cin >> u >> v;
-            u-- , v--;
-            adj[u].insert(v);
-            adj[v].insert(u);
-        }
-        queue<int>q;
-        for(int i = 0 ; i < n ; i++){
-            if(adj[i].size() == 1){
-                q.push(i);
-                // bug(i);
-            }
-        }
-        if(n == 1){
-            cout << vp[0].F << '\n';
-            continue;
-        }
-        int currsum = 0;
-        int ans = 0;
-        while(!q.empty()){
-            int t = q.front();
-            q.pop();
-            // bug(t);
-            // print1(vp);
-            // bug(currsum);
-            ans = max(ans , vp[t].F);
-            if(adj[t].empty())continue;
-            ans = max(ans , vp[t].F + currsum);
-            int par = *adj[t].begin();
-            int vchild = vp[t].F;
-            if(vchild > vp[par].F && vchild <= vp[par].S){
-                vp[par].F = vchild;
-            }
-            else if(vchild > vp[par].S){
-                currsum += vchild - vp[par].S;
-                // vp[par] = {vchild , vchild};
-            }
-            // bug(t);
-            // print1(vp);
-            adj[t].erase(adj[t].begin());
-            adj[par].erase(t);
-            if(adj[par].size() == 1){
-                q.push(par);
-            }
-        }
-        cout << ans << '\n';
+        
     }
 }
 
