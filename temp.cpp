@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
-#define double long double
-#define ull unsigned long long
 #define MOD 998244353
 #define print(a) for(auto x : a) cerr << x << " "; cerr<<endl;
 #define print1(b) for(auto x : b) cerr << x.first << " " << x.second <<endl;
@@ -18,6 +15,13 @@ void __f(const char * names , Arg1&& arg1, Args&&... args){
     cerr.write (names, comma - names) << " : " << arg1 << " | ";__f(comma +1, args... );
 }
 
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
+using namespace __gnu_pbds; 
+  
+#define ordered_set tree<pair<int,int>, null_type,less<pair<int,int>>, rb_tree_tag,tree_order_statistics_node_update> 
+#define int long long int
+
 
 int32_t main() {
     std::ios_base::sync_with_stdio(false);
@@ -27,6 +31,8 @@ int32_t main() {
     cin>>ttt;
     for(int tt = 1 ; tt <= ttt ; tt++ ){
         
+        
+
     }
 }
 
