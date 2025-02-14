@@ -48,58 +48,57 @@ int32_t main() {
                 if(j == i)j++;
                 else{
                     if( (j - 1 < 0 || s1[j] != s1[j-1]) &&  (i + 1 >= n || s1[i] != s1[i+1]) ){
-                        queue<int> q [2];
+                        queue<pair<int,int>> q;
                         char prev = s2[j];
                         int cnt = 1;
                         for(int k = j + 1 ; k <= i ; k++){
                             if(s2[k] != prev){
-                                q[prev - '0'].push(cnt);
+                                q.push({cnt , prev - '0'});
                                 cnt = 1;
                                 prev = s2[k];
                             }
                             else cnt++;
                         }
-                        q[prev - '0'].push(cnt);
-                        int carr[2];
-                        cnt = 1;
-                        carr[0] = 0 , carr[1] = 0;
+                        q.push({cnt,prev - '0'});
+                        vector<int> v[2];
                         prev = s1[j];
-                        int tans = 0;
+                        cnt = 1;
                         for(int k = j + 1 ; k <= i ; k++){
                             if(s1[k] != prev){
-                                carr[prev - '0'] += cnt; 
+                                if(prev == '0')v[0].push_back(cnt);
+                                else v[1].push_back(cnt);
                                 cnt = 1;
-                                if(q[prev - '0'].empty()){
-                                    flg = 1;
-                                    break;
-                                }
-                                else{
-                                    if(carr[prev - '0'] == q[prev - '0'].front())q[prev - '0'].pop();
-                                    else if(carr[prev - '0'] > q[prev - '0'].front()){
-                                        flg = 1;
-                                        break;
-                                    }
-                                }
-                                // redefine prev 
-                                tans ++;
                                 prev = s1[k];
                             }
                             else cnt++;
                         }
-                        tans++;
-                        ans += tans/2;
-                        carr[prev - '0'] += cnt; 
-                        if(q[prev - '0'].empty()){
-                            flg = 1;
-                            break;
-                        }
-                        else{
-                            if(carr[prev - '0'] == q[prev - '0'].front())q[prev - '0'].pop();
-                            else if(carr[prev - '0'] > q[prev - '0'].front()){
+                        if(prev == '0')v[0].push_back(cnt);
+                        else v[1].push_back(cnt);
+                        int l = 0;
+                        vector<int> sum(2,0);
+                        print(v[0]);
+                        print(v[1]);
+                        ans += v[0].size();
+                        while(!q.empty() && flg == 0){
+                            auto t1 = q.front();
+                            q.pop();
+                            bug(t1.F , t1.S);
+                            int bit = t1.S;
+                            while(sum[bit] < t1.F && l < v[0].size()){
+                                sum[0] += v[0][l];
+                                sum[1] += v[1][l];
+                                l++;
+                            }
+                            if(sum[bit] == t1.F){
+                                sum[0] += v[0][l];
+                                sum[1] += v[1][l];
+                            }
+                            else {
                                 flg = 1;
                                 break;
                             }
                         }
+
                         if(flg)break;
                         else j = i + 1;
                     }
