@@ -76,17 +76,14 @@ int power(int num , int pow, int mod){
 }
 
 
-int C(int n, int r,int mod)
-{       
+int C(int n, int r,int mod){       
     int ans = 1;
-
     ans*= fact[n];
     ans%= mod;
     ans*= power(fact[r],mod-2,mod);
     ans%=mod;
     ans*= power(fact[n-r],mod-2,mod);
     ans%=mod;
-
     return ans;
 }
 
@@ -550,17 +547,30 @@ vector<vector<int>> matexp(vector<vector<int>> & mat , int pow , int mod){
 // DSU
 
 struct DSU {
-	vector<int> e; void init(int N) { e = vector<int>(N,-1); }
-	int get(int x) { return e[x] < 0 ? x : e[x] = get(e[x]); } 
-	bool sameSet(int a, int b) { return get(a) == get(b); }
-	int size(int x) { return -e[get(x)]; }
-	bool unite(int x, int y) { // union by size
-		x = get(x), y = get(y); if (x == y) return 0;
-		if (e[x] > e[y]) swap(x,y);
-		e[x] += e[y]; e[y] = x; return 1;
-	}
+	vector<int> par; 
+    vector<int> size;
+    void init(int N){
+        par.resize(N , -1);
+        size.resize(N , 0);
+    }
+    int get(int x){
+        if(par[x] < 0)return x;
+        else return par[x] = get(par[x]);
+    }
+    void unite(int x , int y){
+        x = get(x);
+        y = get(y);
+        if(x == y )return;
+        if(size[x] > size[y]){
+            par[y] = x;
+            size[x] += size[y];
+        }
+        else{
+            par[x] = y;
+            size[y] += size[x];
+        }
+    }
 };
-
 
 
 // dsu template
@@ -592,3 +602,73 @@ struct ufds{
         return true;
     }
 };
+
+
+
+/*
+
+lca template
+
+int n, sz;
+vector<vector<int>> adj, up;
+vector<int> d;
+
+
+void precalc(int v, int p){
+    d[v] = d[p] + 1;
+    up[v][0] = p;
+    for(int i = 1; i <= sz; ++i){
+        up[v][i] = up[up[v][i - 1]][i - 1];
+    }
+    for(int u: adj[v]){
+        if(u == p) continue;
+        precalc(u, v);
+    }
+}
+
+int lca(int u, int v){
+    if(d[u] < d[v]){
+        swap(u, v);
+    }
+    for(int cur = sz; cur >= 0; --cur){
+        if (d[u] - (1 << cur) >= d[v]) {
+            u = up[u][cur];
+        }
+    }
+    for(int cur = sz; cur >= 0; --cur){
+        if (up[u][cur] != up[v][cur]) {
+            u = up[u][cur];
+            v = up[v][cur];
+        }
+    }
+    return u == v ? u : up[u][0];
+}
+
+
+
+int32_t main() {
+    std::ios_base::sync_with_stdio(false);
+	std::cin.tie(nullptr); std::cout.tie(nullptr);
+    int ttt=1 ;
+    int mod = 998244353;
+    // cin>>ttt;
+    for(int tt = 1 ; tt <= ttt ; tt++ ){
+        cin >> n;
+        sz = 0;
+        while((1<<sz) < n)sz++;
+        adj.assign(n , vector<int>(0));
+        up.assign(n , vector<int> (sz + 1 ));
+        d.assign(n , -1);
+        for(int i = 0 ; i < n -1 ; i++){
+            int u , v;
+            cin >> u >> v;
+            adj[--u].push_back(--v);
+            adj[v].push_back(u);
+            // bug(u , v);
+        }
+        precalc(0 , 0);
+    }
+}
+
+
+*/
