@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
+#define int int64_t
 #define double long double
 #define ull unsigned long long
 #define MOD 998244353
@@ -17,18 +17,50 @@ void __f(const char * names , Arg1&& arg1, Args&&... args){
     const char* comma = strchr (names + 1,',');
     cerr.write (names, comma - names) << " : " << arg1 << " | ";__f(comma +1, args... );
 }
-
-
+ 
 
 int32_t main() {
-    std::ios_base::sync_with_stdio(false);
-	std::cin.tie(nullptr); std::cout.tie(nullptr);
-    int ttt=1 ;
-    int mod = 998244353;
-    cin>>ttt;
-    for(int tt = 1 ; tt <= ttt ; tt++ ){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int ttt;
+    cin >> ttt;
+    while(ttt--){
+        int n , m , k , x , y ;
+        cin >> n >> m >> k;
+        map<int , int> fmin , smin;
+        for(int i = 0 ; i < k ; i++){
+            cin >> x >> y;
+            if(!fmin.count(x)){
+                fmin[x] = y;
+                smin[x] = m + 1;
+            }
+            else if(y < fmin[x]){
+                smin[x] = fmin[x];
+                fmin[x] = y;
+            }
+            else{
+                smin[x] = min(y , smin[x]);
+            }
+        }
+        int prev = n  , mini = m + 1;
+        fmin[1] = min(fmin[1] , m + 1);
+        smin[1] = min(smin[1] , m + 1);
+        int ans = 0;
+        map<int,int> bt;
+        for(auto it = fmin.rbegin() ; it != fmin.rend() ; it++){
+            ans += (prev - it->F)*(mini - 1);
+            cout << it->F << " " << it->S << '\n';
+            if(it->S <= mini){
+                mini = it->S;
+                bt[it->F] = 1;
+            }
+            prev = it->F;
+        }
+        ans += prev * (mini - 1);
+        cout << ans << '\n';
+        
+
         
     }
+    return 0;
 }
-
-
